@@ -1,15 +1,32 @@
 import Component from "./Component"
 
 export default class MedInput extends Component {
-  constructor(parentNode, { name, label, disabled = false, mediator }) {
+  constructor(parentNode, { name, label, disabled = false, mediator, value = '' }) {
     super()
     this.parentNode = parentNode
     this.name = name
     this.label = label
-    this.value = ""
     this.mediator = mediator
-    this.disabled = disabled
     window[`_${name}`] = this.handleChange
+    setTimeout(() => {
+      this.disabled = disabled
+      this.value = value
+    }, 200)
+  }
+
+  set disabled(bool) {
+    this.toggleDisable(bool)
+  }
+
+  set value(str) {
+    this.defineSelf().then(element => {
+      element.setAttribute('value', str)
+    })
+  }
+
+  get value() {
+    const element = document.getElementById(this.name)
+    return element.getAttribute('value')
   }
 
   defineSelf = () => {
@@ -44,8 +61,8 @@ export default class MedInput extends Component {
 
   handleChange = () => {
     this.defineSelf().then((oneself) => {
-      this.value = oneself.value
-      this.mediator.notify(this.name, this.value)
+      this.mediator.notify(this.name, oneself.value)
+      setTimeout(() => console.log(this.value))
     })
   }
 

@@ -9,7 +9,7 @@ export default class Form extends Component {
     this.Name = new MedInput("form", {
       name: "name",
       label: "Name",
-      mediator: this,
+      mediator: this
     })
     this.Email = new MedInput("form", {
       name: "email",
@@ -38,20 +38,27 @@ export default class Form extends Component {
     const isName =  name === 'name'
     const isEmail = name === 'email'
     const isLogin = name === 'username'
+    const isCountry = name === 'country'
+    this.state[name] = value
 
     if (isName) {
-      this.Email.toggleDisable(false)
+      this.Name.value = value
+      this.Email.disabled = false
     }
 
     if (isEmail) {
-      this.Login.toggleDisable(false)
+      this.Email.value = value
+      this.Login.disabled = false
     }
 
     if (isLogin) {
-      this.Country.toggleDisable(false)
+      this.Login.value = value
+      this.Country.disabled = false
     }
 
-    this.state[name] = value
+    if (isCountry) {
+      this.Country.value = value
+    }
     console.log(this.state)
   }
 

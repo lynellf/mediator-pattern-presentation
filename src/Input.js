@@ -39,8 +39,8 @@ export default class Input extends Component {
   }
 
   handleChange = () => {
-    this.defineSelf().then((oneself) => {
-      this.value = oneself.value
+    this.defineSelf().then((element) => {
+      this.value = element.value
       const hasValue = this.value.length > 0
       const isReady = this.nextInput && hasValue
       if (isReady) {
